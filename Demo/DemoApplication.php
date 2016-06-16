@@ -14,12 +14,16 @@ try {
   //$G_SUB_MENU             = "setup";
   //$G_ID_SUB_MENU_SELECTED = "ID_DEMO_02";
 
+
+//plugin config
   $config = array();
   $config["pageSize"] = 15;
   $config["message"] = "Hello world!";
+  $config["server"] = "http://localhost:8080";
 
   $oHeadPublisher->addContent("Demo/DemoApplication"); //Adding a html file .html
   $oHeadPublisher->addExtJsScript("Demo/DemoApplication", false); //Adding a javascript file .js
+  
   $oHeadPublisher->assign("CONFIG", $config);
 
 

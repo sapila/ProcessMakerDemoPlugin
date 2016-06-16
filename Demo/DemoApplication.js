@@ -47,7 +47,8 @@ Demo.application = {
         fields: [{name: "APP_NUMBER"},
                  {name: "APP_INIT_DATE"},
                  {name: "APP_STATUS"},
-                 {name: "USR_USERNAME"}
+                 {name: "USR_USERNAME"},
+                 {name: "APP_UID"}
                 ]
       }),
       
@@ -108,7 +109,9 @@ Demo.application = {
       text: "Search",
       
       handler: function() {
-        Ext.MessageBox.alert("Alert", "Hi search Niks");
+        var app_num = Ext.getCmp('txtSearch').getValue();
+
+        Ext.getCmp('grdpnlUser').getStore().load({params: {app_num: app_num}});
       }
     });
     
@@ -132,8 +135,7 @@ Demo.application = {
            var app_num = Ext.getCmp('txtSearch').getValue();
 
            Ext.getCmp('grdpnlUser').getStore().load({params: {app_num: app_num}});
-        
-          
+         
           }
         }
       }
@@ -186,7 +188,7 @@ Demo.application = {
         width:50,
         sortable:true
       },
-      columns:[{id: "ID", dataIndex: "ID", hidden: true},
+      columns:[{APP_UID: "APP_UID", dataIndex: "APP_UID", hidden: true},
                {header: "id", dataIndex: "APP_NUMBER",width: 25, align: "left"},
                {header: "Status", dataIndex: "APP_STATUS", width: 25, align: "center"},
                {header: "Init Date", dataIndex: "APP_INIT_DATE", width: 25, align: "left"},
@@ -229,6 +231,11 @@ Demo.application = {
       renderTo: "divMain",
       
       listeners:{
+        //on row double click
+          rowdblclick: function(grid, index, e) {
+             window.location.href = CONFIG.server + "/sysworkflow/en/neoclassic/cases/open?APP_UID="+storeUser.data.items[index].data.APP_UID+"&DEL_INDEX=1&action=sent";
+        }
+      
       }
     });
     
